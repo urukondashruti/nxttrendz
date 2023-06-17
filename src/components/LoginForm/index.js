@@ -6,24 +6,8 @@ class LoginForm extends Component {
   state = {
     username: '',
     password: '',
-  }
-
-  onSubmitForm = async event => {
-    event.preventDefault()
-    const {username, password} = this.state
-    const formDetail = {username, password}
-    console.log(formDetail)
-
-    const url = 'https://apis.ccbp.in/login'
-
-    const options = {
-      method: 'POST',
-      body: JSON.stringify(formDetail),
-    }
-
-    const response = await fetch(url, options)
-    const result = await response.json()
-    console.log(result)
+    msg: '',
+    boolean: false,
   }
 
   username = event => {
@@ -34,8 +18,34 @@ class LoginForm extends Component {
     this.setState({password: event.target.value})
   }
 
-  render() {
+  submitSuccess = () => {
+    const {history} = this.props
+    history.replace('/')
+  }
+
+  onSubmitForm = async event => {
+    event.preventDefault()
     const {username, password} = this.state
+    const formDetail = {username, password}
+
+    const url = 'https://apis.ccbp.in/login'
+
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(formDetail),
+    }
+
+    const response = await fetch(url, options)
+    const result = await response.json()
+    if (response.ok === true) {
+      this.submitSuccess()
+    } else {
+      this.setState({msg: result.error_msg, boolean: true})
+    }
+  }
+
+  render() {
+    const {username, password, msg, boolean} = this.state
     return (
       <div className="con1">
         <div>
@@ -63,6 +73,7 @@ class LoginForm extends Component {
                   value={username}
                   onChange={this.username}
                   className="input1"
+                  placeholder="Username"
                 />
               </div>
             </div>
@@ -77,12 +88,14 @@ class LoginForm extends Component {
                   value={password}
                   onChange={this.password}
                   className="input1"
+                  placeholder="Password"
                 />
               </div>
             </div>
             <button type="submit" className="but">
               Login
             </button>
+            {boolean && <p>{msg}</p>}
           </form>
         </div>
       </div>

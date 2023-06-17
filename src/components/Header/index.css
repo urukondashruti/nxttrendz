@@ -1,1 +1,39 @@
 /* Write your CSS code here */
+.con4 {
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+}
+
+.con5 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 240px;
+  margin-right: 240px;
+  margin-top: 20px;
+}
+
+.size5 {
+  height: 80px;
+  width: 400px;
+}
+
+.para2 {
+  color: #64748b;
+  margin-right: 20px;
+}
+
+.but4 {
+  background-color: #0b69ff;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 10px;
+  margin-top: 25px;
+  margin-right: 20px;
+  height: 30px;
+  width: 70px;
+  color: white;
+}
